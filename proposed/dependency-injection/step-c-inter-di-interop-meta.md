@@ -1,5 +1,5 @@
-Group 2: Interoperability between DI containers
-===============================================
+Step C: Interoperability between DI containers
+==============================================
 
 This document is a working group related to [dependency injection containers interoperability](dependency-injection-meta.md).
 

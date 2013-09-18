@@ -197,7 +197,7 @@ Step D releated work will be summarized in [this meta document](step-d-di-config
 
 ### 5.3 Contributors
 
-* 
+* Matthieu Napoli
 
 6. Votes
 --------
