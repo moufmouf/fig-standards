@@ -35,6 +35,9 @@ Users of dependency injections containers (DIC) are refered to as `user`.
 - `has` takes one unique parameter: an instance's identifier. It returns `true`
   if an instance identifier is known to the container and `false` if it is not.
   
+**Note**: the `ContainerInterface` name is temporary and needs to be discussed.
+[See this chapter in meta document.](step-a-common-object-retrieval-interface.md#naming-of-the-interface)
+
 ### 1.2 Exceptions
 
 - Question? Should we standardize an interface that should be implemented by
@@ -64,6 +67,11 @@ An iterator?
 **TODO**: is there a need for a *create* method that would create a new instance
 instead of serving an old one? I'm not sure about this...
 
+### 1.3.3 Chaining DI containers
+
+**TODO**: is there a need for a *chain* method that would chain DI containers?
+We might also want to consider the alternative of using a DI container aggregator
+(see [Proposition 2 by Marco Pivetta here](step-c-inter-di-interop-meta.md)).
 
 2. Package
 ----------
@@ -77,7 +85,6 @@ and a test suite to verify your implementation is provided as part of the
 
 ```php
 <?php
-
 namespace Psr\DI;
 
 /**

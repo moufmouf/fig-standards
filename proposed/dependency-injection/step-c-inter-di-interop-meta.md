@@ -7,23 +7,56 @@ The goal of this group is to propose a mechanism to have multiple active DI cont
 (with a different set of features) speaking to each other. The goal would be to enable one DI container to fetch an instance 
 that it has no knowledge of in another DI container.
 
-Proposition 1 (by David Négrier): chaining
-------------------------------------------
+Proposition 1 (by Marco Pivetta / David Négrier): chaining
+----------------------------------------------------------
 
 This is the easiest implementation.
 If one DI container 1 knows about DI container 2, it should be possible to request an instance from DIC1, and if DIC1
 does not know the instance, it will ask to DIC2.
 
-Using this approach, there is no need to standardize anything. However, there is a flaw. DIC2 cannot refer to DIC1
+Here is an exemple proposed by Marco Pivetta:
+
+```php
+$container = new Pimple();
+
+$container->addSibling(new Zend\ServiceManager\ServiceManager());
+$container->addSibling(new Symfony\DependencyInjection\ContainerBuilder())
+
+$container->get('App')->run();
+```
+
+**Note by David**:
+I think there is a flaw. DIC2 cannot refer to DIC1
 (unless it is chained to DIC1, but then, there is a risk of infinite loop).
 
 It is however very useful to provide "overloading" of instances (League\Di is using this technique), but this
 is not what we are looking for.
 
-I talked about this option because it was mentionned on the mailing list, but my preference goes to propositon 2.
+I talked about this option because it was mentionned on the mailing list, but my preference goes to propositions 2 and 3.
 
-Proposition 2 (by David Négrier): DIC locator
----------------------------------------------
+Proposition 2 (by Marco Pivetta): DIC aggregator
+------------------------------------------------
+
+In this proposition, there is a standard "aggregator" container in charge of fetching instances.
+This container references all the other containers.
+
+The exemple works great because Marco is reversing the way MVC and DI are instanciated.
+Instead of the MVC framework being in charge of instanciating the DI container (the way it is done today
+in most frameworks), it is the DI container that is in charge of calling the application.
+
+```php
+$container = new PsrAggregateContainer();
+
+$container->attach(new Pimple());
+$container->attach(new Zend\ServiceManager\ServiceManager())
+$container->attach(new Symfony\DependencyInjection\ContainerBuilder())
+// add more here (sorry, I'm ignorant about their instantiation entry points)
+
+$container->get('App')->run();
+```
+
+Proposition 3 (by David Négrier): Singleton DIC locator
+-------------------------------------------------------
 
 I understand this can be very controversial, but I feel it could be really invaluable.
 In this proposition, I would like to propose a **standardized singleton** (I know, it sounds bad but wait...)
@@ -67,7 +100,7 @@ be able to find it and return it to DIC1.
 Know, I wonder if this would really be possible, or if this might break caching / optimisations performed by some DI containers.
 Any idea?
 
-Also, there is a real question about sharing this code between project. Should we put the service locator in a common
+Also, there is a real question about sharing this code between projects. Should we put the service locator in a common
 PSR package? Shall each project embed its own DIC locator (and let the autoloader decide which class wins?)
 
 **TODO**
