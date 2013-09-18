@@ -45,6 +45,9 @@ Users of dependency injections containers (DIC) are refered to as `user`.
   errors more easily maybe? (for instance, if this is a configuration
   error in an instance, we might put in the interface the identifier of
   the instance that is poorly configured).
+  
+- Question? Should the implementation throw an error if the user is searching
+  for an instance that does not exist? See [discussion here](step-a-common-object-retrieval-interface.md#behaviour-if-instance-not-found)
 
 ### 1.3 Additional features
 

@@ -188,7 +188,7 @@ Step D releated work will be summarized in [this meta document](step-d-di-config
 
 ### 5.1 Editor(s)
 
-* 
+* David Negrier
 
 ### 5.2 Sponsors
 
@@ -197,7 +197,7 @@ Step D releated work will be summarized in [this meta document](step-d-di-config
 
 ### 5.3 Contributors
 
-* David Negrier
+* 
 
 6. Votes
 --------
