@@ -15,9 +15,9 @@ MVC frameworks requirement list
 In order to have interoperable DI containers, we must first know how those DI containers are used
 by their primary users: MVC frameworks.
 
-The goal of this document is to list the requirements of various MVC frameworks, regarding DI containers.
+The goal of this chapter is to list the requirements of various MVC frameworks, regarding DI containers.
 
-When we have that list, we can very easily see if most MVC framework share a common list of requested feature or not.
+When we have that list, we can very easily see if most MVC frameworks share a common list of requested features or not.
 If they share such a set of requested features, we can move on an work on a common interface.
 If they do not share a set of requested features, all hope is not lost. We can still work on [*step C* on DI containers interoperability](step-c-inter-di-interop-meta.md),
 in order to be able to have several DI containers that can cooperate in the same application. 
@@ -39,10 +39,26 @@ it is almost trivial to add a fallback DI container. Here is
 Note 2: migrating Pimple to use an interface with a `get` method is problematic. Indeed, Silex (that **extends** Pimple) is already
 using the `get` method to register routes. (This occurs because Silex is extending Pimple instead of aggregating Pimple) 
 
+###[Symfony 2 router](http://symfony.com/doc/current/cookbook/controller/service.html)
+
+In Symfony 2, you can declare a controller as a "service". In this case, the controller will be
+instanciated using the service locator (=DI container).
+
+Therefore, **the Symfony 2 router does only require a service locator with a "get" method to run**.
+
+Proof of concept: Here is a [package that enable extending the Symfony service locator with additional
+fallback containers](https://github.com/thecodingmachine/interop.symfony.di.git). The additional 
+containers must implement the ContainerInterface. With this ContainerInterface alone, we are able
+to:
+
+- declare the controller in any other container
+- the Symfony router can detect the controller in the third-party container and instanciate it
+
+
 ###[Splash (Mouf's MVC framework)](http://mouf-php.com/packages/mouf/mvc.splash/index.md)
 
 Splash is requiring the DIC to be searchable, for a given type.
-Indeed, it will scan all the instances available in the DIC to see which are implementing the "ControllerInterface" interface.
+Indeed, it will scan all the instances available in the DIC to see which are implementing the `ControllerInterface` interface.
 
 So at best, Splash needs a `findByType($type)` method to find instances of a given type.
 A simple *list of all instances available* could be enough though, since Splash can do the analysis by itself.
@@ -63,8 +79,12 @@ name might not be the best.
 
 `ServiceLocator`: 
 
-*Comment by Matthieu Napoli / David Négrier*: A DI container might not only serve "service". You can store other kind of
-objects if you want (menu items, widgets...).
+*Comment by Matthieu Napoli*: A framework will use a container as a service locator, and that's OK.
+A user however shouldn't. (that why also I think the interface should be named ServiceLocatorInterface).
+
+*Comment by David Négrier*: A DI container might not only serve "service". You can store other kind of
+objects if you want (menu items, widgets...), therefore, I would avoid the term "Service" in the name
+if the class.
 
 **TODO**: add more names, ask the mailing list about a good name.
 
@@ -78,3 +98,6 @@ Still, we might wonder if this is the best way to handle things. Indeed, if we w
 Returning an exception is great if we are using the DI container as a service locator (for instance if
 we are using the DI container inside a controller), but we should not be using this service this way, it is
 an anti-pattern.
+
+There is also the possibility to [use the decorator pattern to modify that behaviour](https://github.com/jeremeamia/acclimate#container-decorators), 
+just like Jeremy Lindblom is doing in Acclimate. 
