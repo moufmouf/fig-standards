@@ -29,10 +29,61 @@ The way a framework can automatically **discover the container definitions** of 
 
 ## 4. Approaches
 
-### 4.1. The format
+### 4.1. Features
+
+First of all, a word of caution. Container configuration is shared between the application developer and the packages bringing some configuration. Ultimately, container configuration is the responsibility of the application developer. Packages should however be able to bring a "default" configuration to help the developer getting started with sensible defaults (container configuration can be quite complex sometimes). This configuration should be both optional (possibility to bypass it completely), and overwritable (possibility to changes bits of the configuration).
+
+In this section, we will describe the list of features that we can consider to fulfill the goal of this PSR: packages registering container entries. Let's list all possible features and later, we can vote on the features we want to keep or not.
+
+1. Ability to create a container entry using the `new` keyword.
+
+1. Ability to call methods (setters or otherwise) on a container entry.
+
+1. Ability to set public properties of a container entry.
+
+1. Ability to create a container entry using a static factory method.
+
+1. Ability to create a container entry using a factory method from a container service.
+
+1. Ability to create a container entry using a closure.
+
+1. Ability to compile all container entries into a single container for maximum performance.
+
+1. Ability to create aliases.
+
+1. Ability to extend an entry. For instance: ability for a package providing a `Twig_Extension` to modify the `Twig_Environment` by calling `$environment->addExtension($extension)`, even if the `Twig_Environment` entry was not declared by the package itself.
+
+1. Ability to create container entries that are constants.
+
+1. Ability to create container entries that are configuration values.
+
+1. Ability to create container entries that are numerically indexed arrays.
+
+1. Ability to create container entries that are associative arrays (maps).
+
+1. Ability for a package to extend those arrays (add elements to the arrays). Think about a package adding a PSR-7 middleware to the list of available middlewares.
+
+1. Ability for a package to manage priority in those arrays (add a service at the beginning, at the end, in the middle, or give a priority...).
+
+1. Ability to provide a default service that should be used when binding an interface.
+
+1. Ability to declare "lazy" services (services that are wrapped into proxy objects and instanciated only when needed).
+
+1. Ability to have several services for the same class or interface (for instance, several services representing a database connections)
+
+1. Ability to declare objects that are not services (for instance, ability to manage the menu of an application through `MenuItem` container entries that would be added to a `Menu` entry).
+
+1. Ability to have "optional" references: When binding a service to another service, this is the ability to bypass a reference if the entry does not exist in the container.
+
+1. Ability to have static tools analyzing the bindings (for instance, having Packagist analyze the bindings to search for some services...)
+
+1. Ability to have static tools help us edit the binding. For instance, a dedicated UI that can be used to create services and drag'n'drop services together (like Mouf does)
+
+
+When the list of features is complete, I propose we cast a vote on each feature, noting them from -10 (I think this feature is highly conterproductive, this is a showstopper for me), to 10 (I think this feature is absolutely needed and if it is not present, this is a show stopper for me).
+
+
+### 4.2. The format
 
 TODO
 
-### 4.2. Features
-
-TODO
