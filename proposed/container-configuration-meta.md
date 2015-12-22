@@ -79,6 +79,7 @@ In this section, we will describe the list of features that we can consider to f
 
 1. Ability to have static tools help us edit the binding. For instance, a dedicated UI that can be used to create services and drag'n'drop services together (like Mouf does)
 
+1. Ability to perform simple computations on values before injecting them in a container entry (for instance, grab a return value of a function of a service, add it to another value and inject it in another service. This kind of feature comes "out of the box" for closure based services, and can be more complex to implement with definitions. See Symfony's "Expression language")
 
 When the list of features is complete, I propose we cast a vote on each feature, noting them from -10 (I think this feature is highly conterproductive, this is a showstopper for me), to 10 (I think this feature is absolutely needed and if it is not present, this is a show stopper for me).
 
