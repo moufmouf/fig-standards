@@ -57,13 +57,13 @@ In this section, we will describe the list of features that we can consider to f
 
 1. Ability to create container entries for scalar values.
 
-1. Ability to create container entries for constants (from the `define` keyword or the `const` keyword).
+1. Ability to create container entries from constants (from the `define` keyword or the `const` keyword).
 
 1. Ability to create container entries that are numerically indexed arrays. Values of the array can be any valid container entry (i.e. objects, scalars, another array...)
 
 1. Ability to create container entries that are associative arrays (maps). Values of the array can be any valid container entry (i.e. objects, scalars, another array...)
 
-1. Ability for a package to extend those arrays (add elements to the arrays). Think about a package adding a PSR-7 middleware to the list of available middlewares.
+1. Ability for a package to extend those arrays (add elements to the arrays). Think about a package adding a "log handler" to the list of available log handlers.
 
 1. Ability for a package to manage priority in those arrays (add a service at the beginning, at the end, in the middle, or give a priority...).
 
@@ -75,7 +75,17 @@ In this section, we will describe the list of features that we can consider to f
 
 1. Ability to declare objects that are not services (for instance, ability to manage the menu of an application through `MenuItem` container entries that would be added to a `Menu` entry).
 
-1. Ability to have "optional" references: When binding a service to another service, this is the ability to bypass a reference if the entry does not exist in the container.
+1. Ability to have "optional" references: When binding a service to another service, this is the ability to bypass a reference if the entry does not exist in the container. For instance (using pseudo PHP code):
+```php
+if ($container->has('dependency')) {
+    $dependency = $container->get('dependency');
+} else {
+    $dependency = null
+}
+$service = new Service($dependency);
+```
+
+1. Ability to have fall-back aliases/services: a alias/service is only declared by a package if no other package has provided that service so far.
 
 1. Ability to have static tools analyzing the bindings (for instance, having Packagist analyze the bindings to search for some services...)
 
@@ -83,7 +93,7 @@ In this section, we will describe the list of features that we can consider to f
 
 1. Ability to perform simple computations on values before injecting them in a container entry (for instance, grab a return value of a function of a service, add it to another value and inject it in another service. This kind of feature comes "out of the box" for closure based services, and can be more complex to implement with definitions. See Symfony's "Expression language")
 
-When the list of features is complete, I propose we cast a poll on each feature, noting them from 1 to 5:
+When the list of features is complete, I propose we create a poll on each feature, noting them from 1 to 5:
 
 - 1 = highly counterproductive
 - 2 = not needed
