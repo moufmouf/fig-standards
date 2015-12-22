@@ -49,17 +49,17 @@ In this section, we will describe the list of features that we can consider to f
 
 1. Ability to compile all container entries into a single container for maximum performance.
 
-1. Ability to create aliases.
+1. Ability to alias a container entry to another.
 
-1. Ability to extend an entry. For instance: ability for a package providing a `Twig_Extension` to modify the `Twig_Environment` by calling `$environment->addExtension($extension)`, even if the `Twig_Environment` entry was not declared by the package itself.
+1. Ability to modify an entry defined outside of the "module" before it is returned by the container. For instance: ability for a package providing a `Twig_Extension` to modify the `Twig_Environment` by calling `$environment->addExtension($extension)`, even if the `Twig_Environment` entry was not declared by the package itself.
 
-1. Ability to create container entries that are constants.
+1. Ability to create container entries that are scalar values.
 
-1. Ability to create container entries that are configuration values.
+1. Ability to create container entries that are constants (from the `define` keyword or the `const` keyword).
 
-1. Ability to create container entries that are numerically indexed arrays.
+1. Ability to create container entries that are numerically indexed arrays. Values of the array can be any valid container entry (i.e. objects, scalars, another array...)
 
-1. Ability to create container entries that are associative arrays (maps).
+1. Ability to create container entries that are associative arrays (maps). Values of the array can be any valid container entry (i.e. objects, scalars, another array...)
 
 1. Ability for a package to extend those arrays (add elements to the arrays). Think about a package adding a PSR-7 middleware to the list of available middlewares.
 
