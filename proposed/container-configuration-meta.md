@@ -55,9 +55,9 @@ In this section, we will describe the list of features that we can consider to f
 
 1. Ability to modify an entry defined outside of the "module" before it is returned by the container. For instance: ability for a package providing a `Twig_Extension` to modify the `Twig_Environment` by calling `$environment->addExtension($extension)`, even if the `Twig_Environment` entry was not declared by the package itself.
 
-1. Ability to create container entries that are scalar values.
+1. Ability to create container entries for scalar values.
 
-1. Ability to create container entries that are constants (from the `define` keyword or the `const` keyword).
+1. Ability to create container entries for constants (from the `define` keyword or the `const` keyword).
 
 1. Ability to create container entries that are numerically indexed arrays. Values of the array can be any valid container entry (i.e. objects, scalars, another array...)
 
