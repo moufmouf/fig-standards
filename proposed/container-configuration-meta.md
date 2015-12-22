@@ -67,23 +67,25 @@ In this section, we will describe the list of features that we can consider to f
 
 1. Ability for a package to manage priority in those arrays (add a service at the beginning, at the end, in the middle, or give a priority...).
 
+1. Ability to locally declare "anonymous"/"private" services in a package. These are services that can be only used by the package declaring them and are not accessible in other packages or through the container "get" method.
+
 1. Ability to provide a default service that should be used when binding an interface.
 
 1. Ability to declare "lazy" services (services that are wrapped into proxy objects and instanciated only when needed).
 
-1. Ability to have several services for the same class or interface (for instance, several services representing a database connections)
+1. Ability to have several services for the same class or interface (for instance, several services implementing a `LoggerInterface`). In other words: should services have ids, or should they only be bound to a FQCN?
 
-1. Ability to declare objects that are not services (for instance, ability to manage the menu of an application through `MenuItem` container entries that would be added to a `Menu` entry).
+1. Ability to declare if the service should be instantiated once and reused (singleton) or if the service should be instantiated every time it is injected or fetched from the container.
 
 1. Ability to have "optional" references: When binding a service to another service, this is the ability to bypass a reference if the entry does not exist in the container. For instance (using pseudo PHP code):
-```php
-if ($container->has('dependency')) {
-    $dependency = $container->get('dependency');
-} else {
-    $dependency = null
-}
-$service = new Service($dependency);
-```
+   ```php
+   if ($container->has('dependency')) {
+       $dependency = $container->get('dependency');
+   } else {
+       $dependency = null
+   }
+   $service = new Service($dependency);
+   ```
 
 1. Ability to have fall-back aliases/services: a alias/service is only declared by a package if no other package has provided that service so far.
 
