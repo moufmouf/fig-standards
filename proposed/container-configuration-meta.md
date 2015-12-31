@@ -104,7 +104,47 @@ When the list of features is complete, I propose we create a poll on each featur
 - 5 = absolutely needed
 
 
-### 4.2. The format
+### 4.2. Format
 
-TODO
+The following formats are considered for implementing the configuration:
 
+- a static format, for example based on XML, JSON, YAML...
+- definition objects (PHP classes or interfaces)
+- service provider objects
+
+#### 4.2.1 Feature support
+
+List of features that can be supported for each configuration format:
+
+| Feature | Static format | Definition interfaces | Service provider |
+| 1  | x | x | x |
+| 2  | x | x | x |
+| 3  | x | x | x |
+| 4  | x | x | x |
+| 5  | x | x | x |
+| 6  | x | x | x |
+| 7  |   |   | x |
+| 8  | x | x |   |
+| 9  | x | x | x |
+| 10 | x | x | x |
+| 11 | x | x | x |
+| 12 | x | x | x |
+| 13 | x | x | x |
+| 14 | x | x | x |
+| 15 | x | x | x |
+| 16 | x | x | x |
+| 17 | x | x | x |
+| 18 | x | x | x |
+| 19 | x | x | x |
+| 20 | x | x | x |
+| 21 | x | x | x |
+| 22 | x | x | x |
+| 23 | x | x | x |
+| 24 | x |   |   |
+| 25 | x |   |   |
+| 26 |   |   | x |
+
+The few differences can be summed up as:
+
+- the static file format and definition objects can be used to their full potential by compiled containers
+- the service provider approach leaves the most freedom as any PHP code can be used by module authors to create container entries
