@@ -117,6 +117,7 @@ The following formats are considered for implementing the configuration:
 List of features that can be supported for each configuration format:
 
 | Feature | Static format | Definition interfaces | Service provider |
+|----|---|---|---|
 | 1  | x | x | x |
 | 2  | x | x | x |
 | 3  | x | x | x |
