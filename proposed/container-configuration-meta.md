@@ -95,13 +95,16 @@ In this section, we will describe the list of features that we can consider to f
 
 1. Ability to perform simple computations on values before injecting them in a container entry (for instance, grab a return value of a function of a service, add it to another value and inject it in another service. This kind of feature comes "out of the box" for closure based services, and can be more complex to implement with definitions. See Symfony's "Expression language")
 
-When the list of features is complete, I propose we create a poll on each feature, noting them from 1 to 5:
+1. Ability to directly debug the code generating the services (using Xdebug or a similar tool). This is typically a feature available in service providers and not available in configuration files.
 
-- 1 = highly counterproductive
-- 2 = not needed
-- 3 = indifferent
-- 4 = nice to have
-- 5 = absolutely needed
+
+When the list of features is complete, I propose we create a poll on each feature, ranking them from -- to ++:
+
+- -- = highly counterproductive
+- - = not needed
+- / = indifferent
+- + = nice to have
+- ++ = absolutely needed
 
 
 ### 4.2. Format
