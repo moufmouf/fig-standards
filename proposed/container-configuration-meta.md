@@ -33,7 +33,9 @@ The way a framework can automatically **discover the container definitions** of 
 
 First of all, a word of caution. Container configuration is shared between the application developer and the packages bringing some configuration. Ultimately, container configuration is the responsibility of the application developer. Packages should however be able to bring a "default" configuration to help the developer getting started with sensible defaults (container configuration can be quite complex sometimes). This configuration should be both optional (possibility to bypass it completely), and overwritable (possibility to changes bits of the configuration).
 
-In this section, we will describe the list of features that we can consider to fulfill the goal of this PSR: packages registering container entries. Let's list all possible features and later, we can vote on the features we want to keep or not.
+Below is a list of all possible features that have been suggested to fulfill the goal of this PSR: packages registering container entries.
+
+#### 4.1.1. Complete list of features
 
 1. Ability to create a container entry using the `new` keyword.
 
@@ -97,8 +99,12 @@ In this section, we will describe the list of features that we can consider to f
 
 1. Ability to directly debug the code generating the services (using Xdebug or a similar tool). This is typically a feature available in service providers and not available in configuration files.
 
+#### 4.1.2. Vote on those features
 
-When the list of features is complete, I propose we create a poll on each feature, ranking them from -- to ++:
+A vote is currently being cast on the list of features that must be kept.
+Anyone interested is [welcome to vote](https://github.com/container-interop/fig-standards/issues/9)
+
+For each feature, the range goes from -- to ++:
 
 - -- = highly counterproductive
 - - = not needed
@@ -106,47 +112,77 @@ When the list of features is complete, I propose we create a poll on each featur
 - + = nice to have
 - ++ = absolutely needed
 
+Feature | @moufmouf | @mnapoli 
+--------|:---------:|:-------:
+Ability to create a container entry using the new keyword. | ++ | ++
+Ability to call methods (setters or otherwise) on a container entry | ++ | ++
+Ability to set public properties of a container entry. | + | +
+Ability to set private and protected properties of a container entry. | -- | --
+Ability to create a container entry using a static factory method. | + | +
+Ability to create a container entry using a factory method from a container service. | ++ | ++
+Ability to create a container entry using a closure | / | +
+Ability to compile all container entries into a single container for maximum performance. | + | +
+Ability to alias a container entry to another. | ++ | ++
+Ability to modify an entry defined outside of the "module" before it is returned by the container.| ++ | ++
+Ability to create container entries for scalar values. | ++ | ++
+Ability to create container entries from constants (from the define keyword or the const keyword) | + | +
+Ability to create container entries that are numerically indexed arrays. Values of the array can be any valid container entry (i.e. objects, scalars, another array...) | ++ | ++
+Ability to create container entries that are associative arrays (maps). Values of the array can be any valid container entry (i.e. objects, scalars, another array...) | ++ | ++
+Ability for a package to extend those arrays (add elements to the arrays). | ++ | ++
+Ability for a package to manage priority in those arrays | + | -
+Ability to locally declare "anonymous"/"private" services in a package. | + | /
+Ability to provide a default service that should be used when binding an interface. | - | -
+Ability to declare "lazy" services (services that are wrapped into proxy objects and instantiated only when needed) | / | --
+Ability to have several services for the same class or interface (for instance, several services implementing a LoggerInterface). | ++ | ??
+Ability to declare if the service should be instantiated once and reused (singleton) or if the service should be instantiated every time it is injected or fetched from the container. | - | --
+Ability to have "optional" references | + | /
+Ability to have fall-back aliases/services: a alias/service is only declared by a package if no other package has provided that service so far. | / | /
+Ability to have static tools analyzing the bindings (for instance, having Packagist analyze the bindings to search for some services...) | + | /
+Ability to have static tools help us edit the binding. For instance, a dedicated UI that can be used to create services and drag'n'drop services together (like Mouf does)| + | -
+Ability to perform simple computations on values before injecting them in a container entry | + | +
+Ability to directly debug the code generating the services (using Xdebug or a similar tool) | + | ??
 
 ### 4.2. Format
 
 The following formats are considered for implementing the configuration:
 
-- a static format, for example based on XML, JSON, YAML...
-- definition objects (PHP classes or interfaces)
-- service provider objects
+- a standard static format, for example based on XML, JSON, YAML... This has been discussed by `container-interop` members (with a preference for XML), but was not tested.
+- standard PHP objects/interfaces representing container definitions. This has been tested in [container-interop/definition-interop](https://github.com/container-interop/definition-interop)
+- standard service providers. This has been tested in [container-interop/service-provider](https://github.com/container-interop/service-provider)
+
 
 #### 4.2.1 Feature support
 
-List of features that can be supported for each configuration format:
+List of features that can be supported for each configuration format.
 
-| Feature | Static format | Definition interfaces | Service provider |
-|----|---|---|---|
-| 1  | x | x | x |
-| 2  | x | x | x |
-| 3  | x | x | x |
-| 4  | x | x | x |
-| 5  | x | x | x |
-| 6  | x | x | x |
-| 7  |   |   | x |
-| 8  | x | x |   |
-| 9  | x | x | x |
-| 10 | x | x | x |
-| 11 | x | x | x |
-| 12 | x | x | x |
-| 13 | x | x | x |
-| 14 | x | x | x |
-| 15 | x | x | x |
-| 16 | x | x | x |
-| 17 | x | x | x |
-| 18 | x | x | x |
-| 19 | x | x | x |
-| 20 | x | x | x |
-| 21 | x | x | x |
-| 22 | x | x | x |
-| 23 | x | x | x |
-| 24 | x |   |   |
-| 25 | x |   |   |
-| 26 |   |   | x |
+Note: only features with an average score of "+" or "++" have been kept.
+
+Feature | Static format | Definition interfaces | Service provider
+--------|:-------------:|:-------------:|:-------------:
+Ability to create a container entry using the new keyword. | ++ | ++ | ++
+Ability to call methods (setters or otherwise) on a container entry | ++ | ++ | ++
+Ability to set public properties of a container entry. | ++ | ++ | ++
+Ability to create a container entry using a static factory method. | ++ | ++ | ++
+Ability to create a container entry using a factory method from a container service. | ++ | ++ | ++
+Ability to create a container entry using a closure | -- | -- | --
+Ability to compile all container entries into a single container for maximum performance. | ++ | ++ | + [(1)](#explanation_1)
+Ability to alias a container entry to another. | ++ | ++ | ++ 
+Ability to modify an entry defined outside of the "module" before it is returned by the container.| + | + | ++
+Ability to create container entries for scalar values. | ++ | ++ | ++ 
+Ability to create container entries from constants (from the define keyword or the const keyword) | ++ | ++ | ++
+Ability to create container entries that are numerically indexed arrays. Values of the array can be any valid container entry (i.e. objects, scalars, another array...) | ++ | ++ | ++
+Ability to create container entries that are associative arrays (maps). Values of the array can be any valid container entry (i.e. objects, scalars, another array...) | ++ | ++ | ++
+Ability for a package to extend those arrays (add elements to the arrays). | + | + | ++
+Ability to locally declare "anonymous"/"private" services in a package. | + | + | ++
+Ability to have several services for the same class or interface (for instance, several services implementing a LoggerInterface). | ++ | ++ | ++
+Ability to have "optional" references | + | + | ++
+Ability to have fall-back aliases/services: a alias/service is only declared by a package if no other package has provided that service so far. | / | / | ++
+Ability to have static tools analyzing the bindings (for instance, having Packagist analyze the bindings to search for some services...) | ++ | - | --
+Ability to perform simple computations on values before injecting them in a container entry | -- | - | ++
+Ability to directly debug the code generating the services (using Xdebug or a similar tool). | -- | - | ++
+
+
+<a name="explanation_1"></a> (1) For compiled containers, a static format or a definition interface allows to directly put the code generating the services in the container (maximum performance). With service providers, the compiled container will call a static factory method of the service provider. So creating a service from a service provider will generate an additional method call.
 
 The few differences can be summed up as:
 
