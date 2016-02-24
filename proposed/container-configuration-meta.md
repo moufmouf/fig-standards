@@ -103,44 +103,7 @@ Below is a list of all possible features that have been suggested to fulfill the
 
 A vote is currently being cast on the list of features that must be kept.
 Anyone interested is [welcome to vote](https://github.com/container-interop/fig-standards/issues/9)
-
-For each feature, the range goes from -- to ++:
-
-- -- = highly counterproductive
-- - = not needed
-- / = indifferent
-- + = nice to have
-- ++ = absolutely needed
-
-Feature | @moufmouf | @mnapoli 
---------|:---------:|:-------:
-Ability to create a container entry using the new keyword. | ++ | ++
-Ability to call methods (setters or otherwise) on a container entry | ++ | ++
-Ability to set public properties of a container entry. | + | +
-Ability to set private and protected properties of a container entry. | -- | --
-Ability to create a container entry using a static factory method. | + | +
-Ability to create a container entry using a factory method from a container service. | ++ | ++
-Ability to create a container entry using a closure | / | +
-Ability to compile all container entries into a single container for maximum performance. | + | +
-Ability to alias a container entry to another. | ++ | ++
-Ability to modify an entry defined outside of the "module" before it is returned by the container.| ++ | ++
-Ability to create container entries for scalar values. | ++ | ++
-Ability to create container entries from constants (from the define keyword or the const keyword) | + | +
-Ability to create container entries that are numerically indexed arrays. Values of the array can be any valid container entry (i.e. objects, scalars, another array...) | ++ | ++
-Ability to create container entries that are associative arrays (maps). Values of the array can be any valid container entry (i.e. objects, scalars, another array...) | ++ | ++
-Ability for a package to extend those arrays (add elements to the arrays). | ++ | ++
-Ability for a package to manage priority in those arrays | + | -
-Ability to locally declare "anonymous"/"private" services in a package. | + | /
-Ability to provide a default service that should be used when binding an interface. | - | -
-Ability to declare "lazy" services (services that are wrapped into proxy objects and instantiated only when needed) | / | --
-Ability to have several services for the same class or interface (for instance, several services implementing a LoggerInterface). | ++ | ??
-Ability to declare if the service should be instantiated once and reused (singleton) or if the service should be instantiated every time it is injected or fetched from the container. | - | --
-Ability to have "optional" references | + | /
-Ability to have fall-back aliases/services: a alias/service is only declared by a package if no other package has provided that service so far. | / | /
-Ability to have static tools analyzing the bindings (for instance, having Packagist analyze the bindings to search for some services...) | + | /
-Ability to have static tools help us edit the binding. For instance, a dedicated UI that can be used to create services and drag'n'drop services together (like Mouf does)| + | -
-Ability to perform simple computations on values before injecting them in a container entry | + | +
-Ability to directly debug the code generating the services (using Xdebug or a similar tool) | + | ??
+Vote results are [aggregated in the wiki](https://github.com/container-interop/fig-standards/wiki/Vote-results-for-the-important-feature-list)
 
 ### 4.2. Format
 
@@ -149,7 +112,6 @@ The following formats are considered for implementing the configuration:
 - a standard static format, for example based on XML, JSON, YAML... This has been discussed by `container-interop` members (with a preference for XML), but was not tested.
 - standard PHP objects/interfaces representing container definitions. This has been tested in [container-interop/definition-interop](https://github.com/container-interop/definition-interop)
 - standard service providers. This has been tested in [container-interop/service-provider](https://github.com/container-interop/service-provider)
-
 
 #### 4.2.1 Feature support
 
