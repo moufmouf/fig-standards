@@ -99,6 +99,8 @@ Below is a list of all possible features that have been suggested to fulfill the
 
 1. Ability to directly debug the code generating the services (using Xdebug or a similar tool). This is typically a feature available in service providers and not available in configuration files.
 
+1. Ability to get customized error messages in case of misconfiguration. This is the ability, for a package, to throw an error/exception with a detailed custom message if a set of prerequisites is not met.
+
 #### 4.1.2. Vote on those features
 
 A vote is currently being cast on the list of features that must be kept.
@@ -142,7 +144,7 @@ Ability to have fall-back aliases/services: a alias/service is only declared by 
 Ability to have static tools analyzing the bindings (for instance, having Packagist analyze the bindings to search for some services...) | ++ | - | --
 Ability to perform simple computations on values before injecting them in a container entry | -- | - | ++
 Ability to directly debug the code generating the services (using Xdebug or a similar tool). | -- | - | ++
-
+Ability to get customized error messages in case of misconfiguration. | -- | -- | ++
 
 <a name="explanation_1"></a> (1) For compiled containers, a static format or a definition interface allows to directly put the code generating the services in the container (maximum performance). With service providers, the compiled container will call a static factory method of the service provider. So creating a service from a service provider will generate an additional method call.
 
